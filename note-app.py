@@ -4,7 +4,6 @@ import sqlite3
 from datetime import datetime
 
 
-
 class NoteApp:
     def __init__(self):
         self.root = tk.Tk()
@@ -51,7 +50,7 @@ class NoteApp:
         self.result_tree.configure(yscrollcommand=yscrollbar.set)
         yscrollbar.grid(row=6, column=2, sticky='ns')
         
-        # serach for notes at app start
+        # search for notes at app start
         self.search_notes()
 
         
@@ -71,21 +70,20 @@ class NoteApp:
         
         
     def search_notes(self):
-        # Delete all the existing rows in the Treeview
+        # delete all the existing rows in the Treeview
         for i in self.result_tree.get_children():
             self.result_tree.delete(i)
 
-        # Retrieve all the notes and timestamps from the "notes" table
+        # retrieve all the notes and timestamps from "notes" table
         self.cursor.execute("SELECT * FROM notes")
         notes = self.cursor.fetchall()
 
-        # Insert each note and timestamp into the result_tree
+        # insert each note and timestamp into result_tree
         for note in notes:
             
             self.result_tree.insert("", tk.END, values = (note[2], note[0], note[1]))
         
-
-
+        
 
 if __name__ == "__main__":
     # create app instance
