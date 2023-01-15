@@ -8,7 +8,7 @@ class NoteApp:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Note App")
-        self.root.geometry('620x300')
+        self.root.geometry('620x330')
         
         # create database connection
         self.conn = sqlite3.connect('notes.db')
