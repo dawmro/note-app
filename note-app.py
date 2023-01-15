@@ -26,6 +26,7 @@ class NoteApp:
         self.note_label = tk.Label(self.root, text="Note:")
         self.note_entry = tk.Entry(self.root)
         self.add_button = tk.Button(self.root, text="Add Note", command=self.add_note)
+        self.search_button = tk.Button(self.root, text="Refresh notes", command=self.search_notes)
         
         # add GUI elements for results
         self.result_tree = ttk.Treeview(self.root, columns=('Timestamp','Topic', 'Note'), show='headings')
@@ -43,6 +44,7 @@ class NoteApp:
         self.note_label.grid(row=1, column=0, sticky='e')
         self.note_entry.grid(row=1, column=1)
         self.add_button.grid(row=2, column=1)
+        self.search_button.grid(row=3, column=1)
         
         # serach for notes at app start
         self.search_notes()
