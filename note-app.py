@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import sqlite3
 from datetime import datetime
 
@@ -26,12 +27,25 @@ class NoteApp:
         self.note_entry = tk.Entry(self.root)
         self.add_button = tk.Button(self.root, text="Add Note", command=self.add_note)
         
+        # add GUI elements for results
+        self.result_tree = ttk.Treeview(self.root, columns=('Timestamp','Topic', 'Note'), show='headings')
+        self.result_tree.heading('Timestamp', text='Timestamp')
+        self.result_tree.heading('Topic', text='Topic')
+        self.result_tree.heading('Note', text='Note')
+        self.result_tree.column('Timestamp', stretch=tk.YES)
+        self.result_tree.column('Topic', stretch=tk.YES)
+        self.result_tree.column('Note', stretch=tk.YES)
+        self.result_tree.grid(row=6, column=0, columnspan=2)        
+        
         # add GUI elements to the root window
         self.topic_label.grid(row=0, column=0, sticky='e')
         self.topic_entry.grid(row=0, column=1)
         self.note_label.grid(row=1, column=0, sticky='e')
         self.note_entry.grid(row=1, column=1)
         self.add_button.grid(row=2, column=1)
+        
+        # serach for notes at app start
+        self.search_notes()
 
         
     # method for adding notes to database    
@@ -47,6 +61,21 @@ class NoteApp:
         # clear entry fields
         self.topic_entry.delete(0, tk.END)
         self.note_entry.delete(0, tk.END)
+        
+        
+    def search_notes(self):
+        # Delete all the existing rows in the Treeview
+        for i in self.result_tree.get_children():
+            self.result_tree.delete(i)
+
+        # Retrieve all the notes and timestamps from the "notes" table
+        self.cursor.execute("SELECT * FROM notes")
+        notes = self.cursor.fetchall()
+
+        # Insert each note and timestamp into the result_tree
+        for note in notes:
+            
+            self.result_tree.insert("", tk.END, values = (note[2], note[0], note[1]))
         
 
 
