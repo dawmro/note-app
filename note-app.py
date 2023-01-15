@@ -11,6 +11,11 @@ class NoteApp:
         self.conn = sqlite3.connect('notes.db')
         self.cursor = self.conn.cursor()
         
+        # create the "notes" table if it doesn't exist
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS notes 
+                            (topic TEXT, note TEXT, timestamp TEXT)''')
+        self.conn.commit()
+        
 
 
 
