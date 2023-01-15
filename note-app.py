@@ -7,6 +7,10 @@ class NoteApp:
         self.root.title("Note App")
         self.root.geometry('620x300')
         
+        # create database connection
+        self.conn = sqlite3.connect('notes.db')
+        self.cursor = self.conn.cursor()
+        
 
 
 
