@@ -46,6 +46,11 @@ class NoteApp:
         self.add_button.grid(row=2, column=1)
         self.search_button.grid(row=3, column=1)
         
+        # add a vertical scrollbar to the Treeview
+        yscrollbar = ttk.Scrollbar(self.root, orient="vertical", command=self.result_tree.yview)
+        self.result_tree.configure(yscrollcommand=yscrollbar.set)
+        yscrollbar.grid(row=6, column=2, sticky='ns')
+        
         # serach for notes at app start
         self.search_notes()
 
