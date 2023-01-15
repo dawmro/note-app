@@ -24,7 +24,7 @@ class NoteApp:
         self.topic_entry = tk.Entry(self.root)
         self.note_label = tk.Label(self.root, text="Note:")
         self.note_entry = tk.Entry(self.root)
-        self.add_button = tk.Button(self.root, text="Add Note", command='')
+        self.add_button = tk.Button(self.root, text="Add Note", command=self.add_note)
         
         # add GUI elements to the root window
         self.topic_label.grid(row=0, column=0, sticky='e')
@@ -34,7 +34,19 @@ class NoteApp:
         self.add_button.grid(row=2, column=1)
 
         
+    # method for adding notes to database    
+    def add_note(self):
+        topic = self.topic_entry.get()
+        note = self.note_entry.get()
+        timestamp = datetime.now()
 
+        # insert note and timestamp into "notes" table
+        self.cursor.execute("INSERT INTO notes (topic,note,timestamp) VALUES (?, ?,?)", (topic, note,timestamp))
+        self.conn.commit()
+
+        # clear entry fields
+        self.topic_entry.delete(0, tk.END)
+        self.note_entry.delete(0, tk.END)
         
 
 
